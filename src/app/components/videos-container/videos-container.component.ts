@@ -4,6 +4,7 @@ import {DialogVideoViewComponent} from '../dialog-video-view/dialog-video-view.c
 import {FileUpload} from '../../model/models';
 import {DownloadService} from '../../services/download.service';
 import {map} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'app-videos-container',
@@ -16,6 +17,7 @@ export class VideosContainerComponent implements OnInit {
 
     public fileUploads: FileUpload[] = [];
     private fileUploadsCopy: FileUpload[] = [];
+    public searchFC = new FormControl();
 
     private basePath = '/videos';
 
@@ -31,8 +33,13 @@ export class VideosContainerComponent implements OnInit {
         ).subscribe(fileUploads => {
             this.fileUploads = fileUploads;
             this.fileUploadsCopy = Object.assign([], this.fileUploads);
-            console.log('data : ', this.fileUploads);
         });
+
+        this.searchFC.valueChanges
+            .subscribe(searchValue => {
+                this.fileUploads = searchValue === '' ? this.fileUploadsCopy :
+                    this.fileUploadsCopy.filter(value => value.name.toUpperCase().indexOf(searchValue.toString().toUpperCase()) !== -1);
+            });
     }
 
     openDialog(file?: FileUpload): void {

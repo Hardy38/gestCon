@@ -20,7 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { DialogVideoViewComponent } from './components/dialog-video-view/dialog-video-view.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { SafePipePipe } from './pipes/safe-pipe.pipe';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 // 2. Add your credentials from step 1
@@ -57,7 +57,9 @@ const config = {
         MatListModule,
         MatExpansionModule,
         MatIconModule,
-        MatDialogModule
+        MatDialogModule,
+        ReactiveFormsModule,
+        FormsModule
     ],
     providers: [],
     entryComponents: [DialogVideoViewComponent],
