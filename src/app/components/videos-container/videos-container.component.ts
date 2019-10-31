@@ -38,8 +38,9 @@ export class VideosContainerComponent implements OnInit {
 
         this.searchFC.valueChanges
             .subscribe(searchValue => {
+                console.log('Value : ', searchValue)
                 this.fileUploads = searchValue === '' ? this.fileUploadsCopy :
-                    this.fileUploadsCopy.filter(value => value.name.toUpperCase().indexOf(searchValue.toString().toUpperCase()) !== -1);
+                    this.fileUploadsCopy.filter(value => value && value.name && value.name.toUpperCase().indexOf(searchValue.toString().toUpperCase()) !== -1);
             });
     }
 
