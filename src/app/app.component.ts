@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
         this.uploadService.upload(event)
             .subscribe(() => {
                 this.uploadProgress = this.uploadService.uploadProgress;
-                this.downloadURL = true
+                this.downloadURL = true;
             });
     }
 }
