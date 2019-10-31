@@ -25,26 +25,27 @@ export class UploadService {
     }
 
     upload(event) {
+
         const fileToUpLoad = new FileUpload(event.target.files[0]);
-        const id = Math.random().toString(36).substring(2);
+        this.basePath = fileToUpLoad && fileToUpLoad.file.type.indexOf('video/') !== -1 ? '/videos' : fileToUpLoad.file.type.indexOf('image/') !== -1 ? '/photos' : '/documents';
+        const id = `${this.basePath}/${fileToUpLoad.file.name}`;
         this.ref = this.afStorage.ref(id);
         this.task = this.ref.put(fileToUpLoad.file);
         this.uploadProgress = this.task.percentageChanges();
         // this.downloadURL = this.task.downloadURL();
 
-        this.task.snapshotChanges().pipe(
+        return this.task.snapshotChanges().pipe(
             finalize(() => {
                 this.downloadURL = this.ref.getDownloadURL();
                 this.downloadURL.subscribe(url => {
                     fileToUpLoad.url = url;
                     fileToUpLoad.name = fileToUpLoad.file.name;
-                    fileToUpLoad.key = Math.random().toString(36).substring(2);
+                    fileToUpLoad.key = id;
                     this.saveFileData(fileToUpLoad);
                     console.log('url : ', url);
                 });
             })
-        )
-            .subscribe();
+        );
     }
 
     private saveFileData(fileUpload: FileUpload) {
