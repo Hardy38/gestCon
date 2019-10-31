@@ -8,6 +8,12 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UploadComponent } from './components/upload/upload.component';
+import { ViewBlockComponent } from './components/view-block/view-block.component';
+
+
 
 // 2. Add your credentials from step 1
 const config = {
@@ -23,7 +29,9 @@ const config = {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        UploadComponent,
+        ViewBlockComponent
     ],
     imports: [
         BrowserModule,
@@ -32,7 +40,8 @@ const config = {
         AngularFireModule.initializeApp(config),
         AngularFirestoreModule, // firestore
         AngularFireAuthModule, // auth
-        AngularFireStorageModule // storage
+        AngularFireStorageModule, // storage
+      AngularFireDatabaseModule, BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
