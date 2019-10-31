@@ -1,0 +1,14 @@
+<div class="search-container">
+    <form>
+        <input type="text" placeholder="Rechercher.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<mat-list>
+    <mat-list-item *ngFor="let video of fileUploads" class="list-item">
+        <ng-container>
+            <mat-icon matListIcon (click)="delete(video)">clear</mat-icon>
+        </ng-container>
+        <h3 matLine (click)="openDialog(video)"> {{video.name}} </h3>
+    </mat-list-item>
+</mat-list>

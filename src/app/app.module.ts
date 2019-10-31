@@ -9,9 +9,17 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UploadComponent } from './components/upload/upload.component';
-import { ViewBlockComponent } from './components/view-block/view-block.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {UploadComponent} from './components/upload/upload.component';
+import {ViewBlockComponent} from './components/view-block/view-block.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { VideosContainerComponent } from './components/videos-container/videos-container.component';
+import {MatIconModule} from '@angular/material/icon';
+import { DialogVideoViewComponent } from './components/dialog-video-view/dialog-video-view.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { SafePipePipe } from './pipes/safe-pipe.pipe';
 
 
 
@@ -31,19 +39,28 @@ const config = {
     declarations: [
         AppComponent,
         UploadComponent,
-        ViewBlockComponent
+        ViewBlockComponent,
+        VideosContainerComponent,
+        DialogVideoViewComponent,
+        SafePipePipe
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-
         AngularFireModule.initializeApp(config),
         AngularFirestoreModule, // firestore
         AngularFireAuthModule, // auth
         AngularFireStorageModule, // storage
-      AngularFireDatabaseModule, BrowserAnimationsModule
+        AngularFireDatabaseModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatListModule,
+        MatExpansionModule,
+        MatIconModule,
+        MatDialogModule
     ],
     providers: [],
+    entryComponents: [DialogVideoViewComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {

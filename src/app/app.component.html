@@ -1,28 +1,30 @@
-
 <div class="container">
-  <div class="card">
-    <div class="card-header">
-      3c-evolution : Système de gestion de connaissances
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Selectionnez un fichier:</h5>
-      <input type="file" (change)="upload($event)" />
-    </div>
+    <div class="card">
+        <div class="card-header">
+            3c-evolution : Système de gestion de connaissances
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Selectionnez un fichier:</h5>
+            <input type="file" (change)="upload($event)"/>
+        </div>
 
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                 [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)"
+                 aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
+            <span>Document téléchargé avec succès !</span>
+        </div>
+       <!-- <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
+            File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
+        </div>-->
+        <app-upload></app-upload>
     </div>
-
-    <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
-      File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
-    </div>
-
-  </div>
-
 
 
 </div>
-
 
 
 <!--&lt;!&ndash; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * &ndash;&gt;-->
@@ -559,7 +561,6 @@
 <!--&lt;!&ndash; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * &ndash;&gt;-->
 <!--&lt;!&ndash; * * * * * * * * * * End of Placeholder * * * * * * * * * * * &ndash;&gt;-->
 <!--&lt;!&ndash; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * &ndash;&gt;-->
-
 
 
 <router-outlet></router-outlet>

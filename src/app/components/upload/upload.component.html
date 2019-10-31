@@ -1,1 +1,42 @@
-<p>upload works!</p>
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Fichiers présents sur le server</mat-card-title>
+        <!--        <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+    </mat-card-header>
+    <mat-card-content>
+
+
+        <mat-accordion>
+
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title><mat-icon>video_library</mat-icon> Vidéos</mat-panel-title>
+                    <mat-panel-description>
+                        (10) fichiers
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <app-videos-container></app-videos-container>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title> <mat-icon>image</mat-icon> Photos</mat-panel-title>
+                    <mat-panel-description>
+                        (14) fichiers
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title> <mat-icon>library_books</mat-icon> Autres documents</mat-panel-title>
+                    <mat-panel-description>
+                        (1) fichier
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+</mat-card>

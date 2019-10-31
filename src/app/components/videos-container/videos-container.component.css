@@ -1,0 +1,10 @@
+.list-item {
+    cursor: pointer;
+}
+
+.list-item :hover {
+    background: rgba(158, 141, 141, 0.51);
+}
+.list-item mat-icon {
+    color: red;
+}
