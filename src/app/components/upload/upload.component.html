@@ -26,16 +26,17 @@
                         (14) fichiers
                     </mat-panel-description>
                 </mat-expansion-panel-header>
+                <app-videos-container [basePath]="photosPath"></app-videos-container>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
-                    <mat-panel-title> <mat-icon>library_books</mat-icon> Autres documents</mat-panel-title>
+                    <mat-panel-title><mat-icon>library_books</mat-icon> Autres documents</mat-panel-title>
                     <mat-panel-description>
                         (1) fichier
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <p>I'm visible because I am open</p>
+                <app-videos-container [basePath]="documentsPath"></app-videos-container>
             </mat-expansion-panel>
         </mat-accordion>
     </mat-card-content>

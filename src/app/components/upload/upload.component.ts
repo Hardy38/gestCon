@@ -7,7 +7,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-    panelOpenState = true;
+    documentsPath = `/documents`;
+    photosPath = `/photos`;
 
     constructor() {
     }

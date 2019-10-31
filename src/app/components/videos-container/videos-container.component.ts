@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {DialogVideoViewComponent} from '../dialog-video-view/dialog-video-view.component';
 import {FileUpload} from '../../model/models';
@@ -13,13 +13,14 @@ import {FormControl} from '@angular/forms';
 })
 export class VideosContainerComponent implements OnInit {
 
+    @Input() basePath = '/videos';
     messages: string[] = ['test 1', 'test 2', 'test 3', 'test 4'];
 
     public fileUploads: FileUpload[] = [];
     private fileUploadsCopy: FileUpload[] = [];
     public searchFC = new FormControl();
 
-    private basePath = '/videos';
+
 
     constructor(public dialog: MatDialog, private  downloadService: DownloadService) {
     }
