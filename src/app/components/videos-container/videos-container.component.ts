@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {DialogVideoViewComponent} from '../dialog-video-view/dialog-video-view.component';
 import {FileUpload} from '../../model/models';
@@ -15,11 +15,12 @@ import {DialogWarningComponent} from "../dialog-warning/dialog-warning.component
 export class VideosContainerComponent implements OnInit {
 
   @Input() basePath = '/videos';
-  messages: string[] = ['test 1', 'test 2', 'test 3', 'test 4'];
+  @Output() filesLength = new EventEmitter<number>();
 
   public fileUploads: FileUpload[] = [];
   private fileUploadsCopy: FileUpload[] = [];
   public searchFC = new FormControl();
+
 
 
   constructor(public dialog: MatDialog, private  downloadService: DownloadService) {
@@ -29,13 +30,12 @@ export class VideosContainerComponent implements OnInit {
 
     this.downloadService.getFileUploads(100, this.basePath).snapshotChanges().pipe(
       map(changes => {
-        console.log('changes : ', changes)
         return changes.map(c => ({id: c.payload.key, ...c.payload.val()}));
       })
     ).subscribe(fileUploads => {
       this.fileUploads = fileUploads;
       this.fileUploadsCopy = Object.assign([], this.fileUploads);
-      console.log('filllll : ', this.fileUploads);
+      this.filesLength.emit(fileUploads.length);
     });
 
     this.searchFC.valueChanges
@@ -72,7 +72,7 @@ export class VideosContainerComponent implements OnInit {
             err => {
               console.log(err);
             }
-          )
+          );
       });
   }
 }

@@ -13,30 +13,30 @@
                 <mat-expansion-panel-header>
                     <mat-panel-title><mat-icon>video_library</mat-icon> Vidéos</mat-panel-title>
                     <mat-panel-description>
-                        (10) fichiers
+                        ({{videosLength}}) fichiers
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <app-videos-container></app-videos-container>
+                <app-videos-container (filesLength)="videosLength = $event"></app-videos-container>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title> <mat-icon>image</mat-icon> Photos</mat-panel-title>
                     <mat-panel-description>
-                        (14) fichiers
+                        ({{photosLength}}) fichiers
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <app-videos-container [basePath]="photosPath"></app-videos-container>
+                <app-videos-container [basePath]="photosPath" (filesLength)="photosLength = $event"></app-videos-container>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title><mat-icon>library_books</mat-icon> Autres documents</mat-panel-title>
                     <mat-panel-description>
-                        (1) fichier
+                        ({{documentsLength}}) fichier
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <app-videos-container [basePath]="documentsPath"></app-videos-container>
+                <app-videos-container [basePath]="documentsPath" (filesLength)="documentsLength = $event"></app-videos-container>
             </mat-expansion-panel>
         </mat-accordion>
     </mat-card-content>

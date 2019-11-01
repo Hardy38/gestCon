@@ -10,6 +10,10 @@ export class UploadComponent implements OnInit {
     documentsPath = `/documents`;
     photosPath = `/photos`;
 
+    public videosLength: number;
+    public photosLength: number;
+    public documentsLength: number;
+
     constructor() {
     }
 
