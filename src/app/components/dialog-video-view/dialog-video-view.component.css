@@ -1,0 +1,21 @@
+.comments{
+  height: 163px;
+}
+
+.add-comment-container {
+  text-align: end;
+}
+
+.comment{
+  color: #6a758a;
+  font-size: small;
+  background: aliceblue;
+  padding: 5px;
+  margin-bottom: 1px;
+  cursor: pointer;
+}
+
+.red {
+  text-align: end;
+  color: red;
+}

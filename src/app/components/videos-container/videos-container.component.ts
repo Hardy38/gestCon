@@ -3,54 +3,76 @@ import {MatDialog} from '@angular/material';
 import {DialogVideoViewComponent} from '../dialog-video-view/dialog-video-view.component';
 import {FileUpload} from '../../model/models';
 import {DownloadService} from '../../services/download.service';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
+import {DialogWarningComponent} from "../dialog-warning/dialog-warning.component";
 
 @Component({
-    selector: 'app-videos-container',
-    templateUrl: './videos-container.component.html',
-    styleUrls: ['./videos-container.component.css']
+  selector: 'app-videos-container',
+  templateUrl: './videos-container.component.html',
+  styleUrls: ['./videos-container.component.css']
 })
 export class VideosContainerComponent implements OnInit {
 
-    @Input() basePath = '/videos';
-    messages: string[] = ['test 1', 'test 2', 'test 3', 'test 4'];
+  @Input() basePath = '/videos';
+  messages: string[] = ['test 1', 'test 2', 'test 3', 'test 4'];
 
-    public fileUploads: FileUpload[] = [];
-    private fileUploadsCopy: FileUpload[] = [];
-    public searchFC = new FormControl();
+  public fileUploads: FileUpload[] = [];
+  private fileUploadsCopy: FileUpload[] = [];
+  public searchFC = new FormControl();
 
 
+  constructor(public dialog: MatDialog, private  downloadService: DownloadService) {
+  }
 
-    constructor(public dialog: MatDialog, private  downloadService: DownloadService) {
-    }
+  ngOnInit() {
 
-    ngOnInit() {
+    this.downloadService.getFileUploads(100, this.basePath).snapshotChanges().pipe(
+      map(changes => {
+        console.log('changes : ', changes)
+        return changes.map(c => ({id: c.payload.key, ...c.payload.val()}));
+      })
+    ).subscribe(fileUploads => {
+      this.fileUploads = fileUploads;
+      this.fileUploadsCopy = Object.assign([], this.fileUploads);
+      console.log('filllll : ', this.fileUploads);
+    });
 
-        this.downloadService.getFileUploads(6, this.basePath).snapshotChanges().pipe(
-            map(changes =>
-                changes.map(c => ({key: c.payload.key, ...c.payload.val()}))
-            )
-        ).subscribe(fileUploads => {
-            this.fileUploads = fileUploads;
-            this.fileUploadsCopy = Object.assign([], this.fileUploads);
-        });
+    this.searchFC.valueChanges
+      .subscribe(searchValue => {
+        this.fileUploads = searchValue === '' ? this.fileUploadsCopy :
+          this.fileUploadsCopy.filter(value => value.name.toUpperCase().indexOf(searchValue.toString().toUpperCase()) !== -1);
+      });
+  }
 
-        this.searchFC.valueChanges
-            .subscribe(searchValue => {
-                this.fileUploads = searchValue === '' ? this.fileUploadsCopy :
-                    this.fileUploadsCopy.filter(value => value.name.toUpperCase().indexOf(searchValue.toString().toUpperCase()) !== -1);
-            });
-    }
+  openDialog(file?: FileUpload): void {
+    const dialogRef = this.dialog.open(DialogVideoViewComponent, {
+      width: '700px',
+      height: '650px',
+      data: {currentFile: file, basePath: this.basePath}
+    });
+  }
 
-    openDialog(file?: FileUpload): void {
-        const dialogRef = this.dialog.open(DialogVideoViewComponent, {
-            width: '500px',
-            data: {currentFile: file}
-        });
-    }
+  delete(itemToDelete: FileUpload) {
 
-    delete(message: FileUpload) {
-        console.log('Deleteeeeeeeeeeeeeeeeee');
-    }
+    const dialogRef = this.dialog.open(DialogWarningComponent, {
+      width: '400px',
+      data: {message: 'Voulez-vous vraiment supprimer ce fichier?'}
+    });
+
+    dialogRef.afterClosed()
+      .pipe(
+        filter(response => response === true)
+      )
+      .subscribe(response => {
+        this.downloadService.delete(itemToDelete['id'], this.basePath)
+          .then(
+            res => {
+            },
+            err => {
+              console.log(err);
+            }
+          )
+      });
+  }
 }
